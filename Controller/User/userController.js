@@ -1,4 +1,6 @@
 const User = require('../../Models/User/user')
+const Trainer = require('../../Models/Trainer/trainer')
+
 
 const createUser = async (req, res) => {
     try {
@@ -6,6 +8,7 @@ const createUser = async (req, res) => {
         body.DOB = new Date('10/16/1995Z')
         if(Object.keys(body).length !== 0){
             const user = await User.create(body);
+            const trainer = await Trainer.findByIdAndUpdate(body.trainerRef,{$push : {userRefs : user._id}})
             res.status(201).json({
                 success : true, 
                 message : "Comment created successfully",

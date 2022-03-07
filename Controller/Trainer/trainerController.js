@@ -22,7 +22,7 @@ const getTrainerById = async (req, res) => {
     try {
         const trainerId = req.params.id;
         const trainer = await Trainer.findById(trainerId)
-        // .populate('user', 'name username profilePicture ')
+        .populate('userRefs')
         if(trainer)
             res.status(200).json({
                 success: true,
